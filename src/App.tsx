@@ -1,12 +1,43 @@
 import "./App.css";
-import {useAppSelector} from "./app/hooks";
+
+import {useEffect} from "react";
+
+import {useAppDispatch, useAppSelector} from "./app/hooks";
+import {getCharacters} from "./app/thunk";
+import CardList from "./components/CardList";
+import SearchForm from "./components/SearchForm";
 
 function App() {
-  const characters = useAppSelector((state) => state.characters.results);
+  const characters = useAppSelector((state) => state.characters.filteredResults);
+  const isLoading = useAppSelector((state) => state.characters.isLoading);
+  const dispatch = useAppDispatch();
 
-  console.log(characters);
+  useEffect(() => {
+    dispatch(getCharacters());
+  }, []);
 
-  return <h1 className="text-3xl font-bold underline text-slate-400">Hello world!</h1>;
+  return (
+    <main>
+      {isLoading === "loading" ? (
+        <div>Loading...</div>
+      ) : (
+        <section>
+          <SearchForm />
+
+          <ul>
+            {characters.map((character) => (
+              <CardList
+                key={character.name}
+                gender={character.gender}
+                height={character.height}
+                name={character.name}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
+    </main>
+  );
 }
 
 export default App;
