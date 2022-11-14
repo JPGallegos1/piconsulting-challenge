@@ -45,8 +45,17 @@ export const charactersSlice = createSlice({
     setQuery: (state: State, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    deleteCharacter: (state: State, action: PayloadAction<string>) => {
+      const deleteResult = state.results.filter((result) => result.name !== action.payload);
+
+      return {
+        ...state,
+        filteredResults: deleteResult,
+      };
+    },
   },
 });
 
-export const {setCharacters, startLoading, searchCharacter, setQuery} = charactersSlice.actions;
+export const {setCharacters, startLoading, searchCharacter, setQuery, deleteCharacter} =
+  charactersSlice.actions;
 export default charactersSlice.reducer;

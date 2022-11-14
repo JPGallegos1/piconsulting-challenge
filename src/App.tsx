@@ -25,11 +25,12 @@ function App() {
           <SearchForm />
 
           <ul>
-            {characters.map((character) => (
+            {characters.map((character, index) => (
               <CardList
                 key={character.name}
                 gender={character.gender}
                 height={character.height}
+                index={index}
                 name={character.name}
               />
             ))}

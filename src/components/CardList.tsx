@@ -2,11 +2,11 @@ import {Characters} from "../types/characters";
 
 import Card from "./Card";
 
-export default function CardList({key, name, height, gender}: Characters & {key: string}) {
+export default function CardList({name, height, gender, index}: Characters & {index: number}) {
   return (
-    <li key={name}>
+    <li>
       {/* Card */}
-      <Card gender={gender} height={height} name={name} />
+      <Card gender={gender} height={height} index={index} name={name} />
     </li>
   );
 }
