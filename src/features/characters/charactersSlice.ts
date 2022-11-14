@@ -5,9 +5,11 @@ import {createSlice} from "@reduxjs/toolkit";
 import {Characters} from "../../types/characters";
 
 type Loading = "loading" | "success" | "error";
+type Modal = "open" | "close";
 
 interface State {
   isLoading: Loading;
+  showModal: Modal;
   results: Characters[];
   filteredResults: Characters[];
   query: string;
@@ -15,6 +17,7 @@ interface State {
 
 const initialState = {
   isLoading: "loading",
+  showModal: "close",
   results: [],
   filteredResults: [],
   query: "",
@@ -26,6 +29,9 @@ export const charactersSlice = createSlice({
   reducers: {
     startLoading: (state) => {
       state.isLoading = "loading";
+    },
+    setModal: (state: State, action: PayloadAction<Modal>) => {
+      state.showModal = action.payload;
     },
     setCharacters: (state: State, action: PayloadAction<State["results"]>) => {
       state.results = action.payload;
@@ -45,17 +51,29 @@ export const charactersSlice = createSlice({
     setQuery: (state: State, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    deleteCharacter: (state: State, action: PayloadAction<string>) => {
-      const deleteResult = state.results.filter((result) => result.name !== action.payload);
 
-      return {
-        ...state,
-        filteredResults: deleteResult,
-      };
+    addCharacter: (state: State, action: PayloadAction<Characters>) => {
+      state.results.push(action.payload);
+      state.filteredResults.push(action.payload);
+      state.showModal = "close";
+    },
+    deleteCharacter: (state: State, action: PayloadAction<string>) => {
+      const characterFound = state.filteredResults.find((result) => result.name === action.payload);
+
+      if (characterFound) {
+        state.filteredResults.splice(state.filteredResults.indexOf(characterFound), 1);
+      }
     },
   },
 });
 
-export const {setCharacters, startLoading, searchCharacter, setQuery, deleteCharacter} =
-  charactersSlice.actions;
+export const {
+  setCharacters,
+  startLoading,
+  setModal,
+  searchCharacter,
+  setQuery,
+  deleteCharacter,
+  addCharacter,
+} = charactersSlice.actions;
 export default charactersSlice.reducer;

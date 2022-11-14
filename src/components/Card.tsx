@@ -4,7 +4,7 @@ import {deleteCharacter} from "../features/characters/charactersSlice";
 
 import Button from "./Button";
 
-export default function Card({name, height, gender, index}: Characters & {index: number}) {
+export default function Card({name, height, gender}: Characters) {
   const dispatch = useAppDispatch();
 
   return (

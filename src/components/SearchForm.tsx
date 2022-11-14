@@ -1,12 +1,14 @@
 import type {ChangeEvent} from "react";
 
 import {useAppDispatch, useAppSelector} from "../app/hooks";
-import {searchCharacter, setQuery} from "../features/characters/charactersSlice";
+import {searchCharacter, setQuery, setModal} from "../features/characters/charactersSlice";
 
 import Button from "./Button";
+import Modal from "./Modal";
 
 export default function SearchForm() {
   const query = useAppSelector((state) => state.characters.query);
+  const showModal = useAppSelector((state) => state.characters.showModal);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -23,7 +25,12 @@ export default function SearchForm() {
         />
       </div>
 
-      <Button text="Buscar" onClick={() => handleClick()} />
+      <div className="flex gap-1">
+        <Button text="Buscar" onClick={() => handleClick()} />
+        <Button text="Agregar" onClick={() => dispatch(setModal("open"))} />
+      </div>
+
+      {showModal === "open" ? <Modal /> : null}
     </div>
   );
 }
