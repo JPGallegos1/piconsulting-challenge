@@ -1,30 +1,43 @@
-import {useState} from "react";
-
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
+import {useEffect} from "react";
+
+import {useAppDispatch, useAppSelector} from "./app/hooks";
+import {getCharacters} from "./app/thunk";
+import CardList from "./components/CardList";
+import SearchForm from "./components/SearchForm";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const characters = useAppSelector((state) => state.characters.filteredResults);
+  const isLoading = useAppSelector((state) => state.characters.isLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCharacters());
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img alt="Vite logo" className="logo" src="/vite.svg" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img alt="React logo" className="logo react" src={reactLogo} />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </div>
+    <main>
+      {isLoading === "loading" ? (
+        <div>Loading...</div>
+      ) : (
+        <section>
+          <SearchForm />
+
+          <ul>
+            {characters.map((character, index) => (
+              <CardList
+                key={character.name}
+                gender={character.gender}
+                height={character.height}
+                index={index}
+                name={character.name}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
+    </main>
   );
 }
 
