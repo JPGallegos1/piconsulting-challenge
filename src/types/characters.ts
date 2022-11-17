@@ -6,6 +6,6 @@ enum GenderEnum {
 
 export interface Characters {
   name: string;
-  height: string;
-  gender: GenderEnum;
+  height?: string;
+  gender?: GenderEnum;
 }

@@ -1,11 +1,10 @@
-import "./App.css";
-
 import {useEffect} from "react";
 
-import {useAppDispatch, useAppSelector} from "./app/hooks";
-import {getCharacters} from "./app/thunk";
-import CardList from "./components/CardList";
-import SearchForm from "./components/SearchForm";
+import {useAppDispatch, useAppSelector} from "../app/hooks";
+import {getCharacters} from "../app/thunk";
+import CardList from "../components/CardList";
+import Layout from "../components/Layout";
+import SearchForm from "../components/SearchForm";
 
 function App() {
   const characters = useAppSelector((state) => state.characters.filteredResults);
@@ -17,7 +16,7 @@ function App() {
   }, []);
 
   return (
-    <main>
+    <Layout>
       {isLoading === "loading" ? (
         <div>Loading...</div>
       ) : (
@@ -30,14 +29,13 @@ function App() {
                 key={character.name}
                 gender={character.gender}
                 height={character.height}
-                index={index}
                 name={character.name}
               />
             ))}
           </ul>
         </section>
       )}
-    </main>
+    </Layout>
   );
 }
 

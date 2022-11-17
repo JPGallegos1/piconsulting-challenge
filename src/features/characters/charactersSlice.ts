@@ -30,6 +30,9 @@ export const charactersSlice = createSlice({
     startLoading: (state) => {
       state.isLoading = "loading";
     },
+    endLoading: (state) => {
+      state.isLoading = "success";
+    },
     setModal: (state: State, action: PayloadAction<Modal>) => {
       state.showModal = action.payload;
     },
@@ -75,5 +78,6 @@ export const {
   setQuery,
   deleteCharacter,
   addCharacter,
+  endLoading,
 } = charactersSlice.actions;
 export default charactersSlice.reducer;

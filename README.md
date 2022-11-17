@@ -1,5 +1,18 @@
 # Pi Consulting Challenge
 
+### Sección de Pokemón
+
+Debido a las fallas de la Star Wars API durante el pasado Martes 15/11, la cuál hoy en día se encuentra en funcionamiento y no dio más problemas, tuve el ok para agregar una api extra con la cual poder interactuar.
+
+Como ya es posible probar las funcionalidades del challenge original con la Star Wars API, en esta sección me diferencié un poco de lo que ya había hecho, por lo cual agregue:
+
+- Routing con `react-router-dom`: para que luzca aún más como una SPA
+- Routing dinámico: se puede seleccionar un pokemón en `http://127.0.0.1:5173/pokemon/` y navegas al pokemón elegido, por ejemplo: `http://127.0.0.1:5173/pikachu`
+- Fetch de datos dinámicos que muestra la información del pokemon seleccionado
+- Loaders de `react-router-dom`
+- Nueva estructura de carpetas + estructura de layout
+- Nuevo header con navegación y la posibilidad de cambiar de proyecto entre Star Wars y Pokemón
+
 ### Reproducir de el challenge de forma local
 
 - Clonar el repositorio: `git clone https://github.com/JPGallegos1/piconsulting-challenge.git`
